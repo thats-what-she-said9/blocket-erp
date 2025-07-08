@@ -2,6 +2,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import authRoutes from './routes/auth.js';
 
 dotenv.config();
 
@@ -24,6 +25,9 @@ mongoose
 app.get('/health', (req, res) => {
   res.send({ status: 'OK' });
 });
+
+// Authentication routes
+app.use('/auth', authRoutes);
 
 // 3. Start server
 const port = process.env.PORT || 4000;
