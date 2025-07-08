@@ -1,25 +1,23 @@
-import { useContext } from 'react';
-import AuthContext from './context/AuthContext';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard'; // placeholder for your protected home
 
 function App() {
-  const { user, logout } = useContext(AuthContext);
-
   return (
-    <div className="App">
-      <h1>Blocket ERP</h1>
-      {user ? (
-        <div>
-          <p>Welcome, {user.email}!</p>
-          <p>Role: {user.role}</p>
-          <button onClick={logout}>Logout</button>
-        </div>
-      ) : (
-        <div>
-          <p>Please log in</p>
-          {/* Login form will go here */}
-        </div>
-      )}
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          {/* Protected route example */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          {/* Redirect root to login/signup */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
