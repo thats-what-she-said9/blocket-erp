@@ -17,4 +17,4 @@ export default [
       // add custom rules here
     },
   },
-]; 
+];
